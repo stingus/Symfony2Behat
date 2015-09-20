@@ -9,5 +9,8 @@
                 <argument type="service" id="doctrine"/>
             </call>
         </service>
+        <service id="form_calculator" class="AppBundle\Form\Type\CalculatorFormType">
+            <tag name="form.type" alias="form_calculator" />
+        </service>
     </services>
 </container>

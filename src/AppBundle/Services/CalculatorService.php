@@ -83,7 +83,7 @@ class CalculatorService
     /**
      * Save the calculation
      */
-    public function save()
+    private function save()
     {
         $calculator = new Calculator();
         $calculator->setFirst($this->numbers[0]);

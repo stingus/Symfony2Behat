@@ -6,6 +6,7 @@ use AppBundle\Entity\Calculator;
 use AppBundle\Services\CalculatorService;
 use Behat\Behat\Context\Context;
 use Behat\Behat\Context\SnippetAcceptingContext;
+use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
@@ -15,7 +16,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext implements Context, SnippetAcceptingContext, KernelAwareContext
+class FeatureContext extends MinkContext implements Context, SnippetAcceptingContext, KernelAwareContext
 {
     /** @var KernelInterface */
     private $kernel;

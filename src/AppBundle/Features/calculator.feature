@@ -12,3 +12,11 @@ Feature: Scientific calculator
     Given I have the number "2" and the number "5"
     When I add them
     Then I want the calculator result to be persisted
+
+  @javascript
+  Scenario: Adding two numbers on the UI
+    Given I am on the homepage
+    When I fill in "First" with "2"
+    And I fill in "Second" with "3"
+    And I press "Add"
+    Then I should see "Result: 5"

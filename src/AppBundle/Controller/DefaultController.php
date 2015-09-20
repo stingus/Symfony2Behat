@@ -2,20 +2,37 @@
 
 namespace AppBundle\Controller;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use AppBundle\Entity\Calculator;
+use AppBundle\Services\CalculatorService;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Template()
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));
+        $calculator = new Calculator();
+        $form = $this->createForm('form_calculator', $calculator);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $calculatorService = $this->get('calculator');
+            $calculatorService->enterNumber($calculator->getFirst());
+            $calculatorService->enterNumber($calculator->getSecond());
+            $calculatorService->calculate(CalculatorService::OPERATION_ADD);
+            $result = $calculatorService->getResult();
+        }
+
+        return array(
+            'form' => $form->createView(),
+            'result' => isset($result) ? $result : null
+        );
     }
 }
